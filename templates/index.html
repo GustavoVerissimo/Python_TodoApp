@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Todo App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-serif">
+    <header class="w-full h-[300px] bg-black static">
+        <h1 class="text-gray-400 text-[70px] text-center pt-[95px]">Todo List</h1>
+    </header>
+    <main class="flex items-center justify-center bg-slate-900 h-[620px]">
+        <div class="bg-gray-400 w-[500px] h-auto max-sm:w-[300px] absolute top-48 rounded-xl">
+            <div class="justify-items-center mt-5">
+                <h2 class="text-[30px] text-white mb-2">Adicionar Tarefas</h2>
+                <form action="/create" method="POST">
+                    <input class="rounded-lg w-[250px] max-sm:w-[150px] p-1" type="text" name="description" required placeholder="Ex: Pagar conta ..." />
+                    <button class="border-2 py-1 px-2 ml-5 rounded-lg hover:bg-white" type="submit">Enviar</button>
+                </form>
+            </div>
+            <div>
+                <h2 class="text-center mt-5 text-[30px] text-white">Lista de Taredas</h2>
+                <ul class="p-2">
+                    {% for task in tasks %}
+                        <li class="flex flex-row items-center justify-between bg-white w-full p-2 my-2 rounded-lg">
+                            <form action="/update/{{ task.id }}" method="POST">
+                                <input class="rounded-lg w-[250px] max-sm:w-[150px] p-1" name="description" value="{{ task.description }}" />
+                                <button class="border-2 py-1 px-2 ml-20 rounded-lg hover:bg-yellow-500" type="submit">Alterar</button>
+                            </form>
+                            <form action="/delete/{{ task.id }}" method="POST">
+                                <button class="border-2 py-1 px-3 ml-5 rounded-lg hover:bg-red-500" type="submit">X</button>
+                            </form>
+                        </li>
+                    {% endfor %}    
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
